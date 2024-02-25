@@ -1,21 +1,27 @@
-import { TodoCounter } from './TodoCounter';
-import { TodoSearch } from './TodoSearch';
-import { TodoList } from './TodoList';
-import { TodoItem } from './TodoItem';
-import { CreateTodoButton } from './CreateTodoButton';
+import { TodoCounter } from '../TodoCounter';
+import { TodoSearch } from '../TodoSearch';
+import { TodoList } from '../TodoList';
+import { TodoItem } from '../TodoItem';
+import { CreateTodoButton } from '../CreateTodoButton';
 import React from 'react';
 import './App.css';
+import { useLocalSotrage } from './useLocalStorage';
 
-const defaultTodos = [
-  { text: 'Cortar cebolla', completed: true },
-  { text: 'Tomar el Curso de Introducción a React.js', completed: false },
-  { text: 'Llorar con la llorona', completed: false },
-  { text: 'bla bla bla', completed: false },
-  { text: 'Usar estados derivados', completed: true },
-];
+// const defaultTodos = [
+//   { text: 'Cortar cebolla', completed: true },
+//   { text: 'Tomar el Curso de Introducción a React.js', completed: false },
+//   { text: 'Llorar con la llorona', completed: false },
+//   { text: 'bla bla bla', completed: false },
+//   { text: 'Usar estados derivados', completed: true },
+// ];
+
+// localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
+// localStorage.clear();
+
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+
+  const [todos, setTodos] = useLocalSotrage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed)?.length;
@@ -44,6 +50,7 @@ function App() {
     newTodos.splice(todoIndex, 1);
     setTodos(newTodos);
   };
+
 
 
   return (
